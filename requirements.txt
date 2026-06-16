@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+python-multipart
+ollama
+ultralytics
+deepface
+openai-whisper
+opencv-python-headless
+tf-keras

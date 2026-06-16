@@ -1,0 +1,10 @@
+FIR Number: 145/2026
+Date: 15-June-2026
+Police Station: Central City
+Reporting Officer: Insp. Raj Kumar
+
+Incident Description:
+On the night of 14th June 2026, at approximately 23:30 hours, a burglary was reported at the Horizon Jewelry Shop located on Main Street. The shop owner, Mr. Sharma, stated that when he opened the shop the next morning, the front glass was shattered and the main safe was broken into. Missing items include 5 gold necklaces and assorted diamond rings valued at roughly $45,000. CCTV footage from the neighboring electronics store shows two unidentified individuals wearing dark hoodies and masks carrying a heavy duffel bag away from the scene at 02:15 hours.
+
+Action Required:
+Summarize this FIR, highlight the key timeline of events, list the stolen items, and extract the suspect descriptions.

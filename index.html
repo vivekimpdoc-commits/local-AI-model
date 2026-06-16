@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Intelligence Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <header>
+        <h1>AI Intelligence Hub</h1>
+        <p>Offline Legal & Forensics Analysis Toolkit</p>
+    </header>
+
+    <main class="container">
+        <!-- Text Analysis Section -->
+        <section class="glass-panel feature-section">
+            <div class="section-header">
+                <span class="icon">📝</span>
+                <h2>Case Analysis (Ollama)</h2>
+            </div>
+            <p class="subtitle">Draft FIRs, summarize case files, and analyze legal documents.</p>
+            
+            <div class="input-group">
+                <label for="llm-model">Select Model:</label>
+                <select id="llm-model">
+                    <option value="llama3">Llama 3</option>
+                    <option value="mistral">Mistral 7B</option>
+                </select>
+            </div>
+            
+            <textarea id="llm-text" rows="5" placeholder="Enter case details or legal text here..."></textarea>
+            <button id="btn-analyze" class="btn primary-btn">Analyze Case</button>
+            
+            <div id="llm-result" class="result-box hidden">
+                <h3>Analysis Report</h3>
+                <div class="content"></div>
+            </div>
+        </section>
+
+        <!-- Object Detection Section -->
+        <section class="glass-panel feature-section">
+            <div class="section-header">
+                <span class="icon">👁️</span>
+                <h2>Object Detection (YOLOv8)</h2>
+            </div>
+            <p class="subtitle">Detect people, vehicles, and weapons in CCTV footage or images.</p>
+            
+            <div class="file-upload">
+                <input type="file" id="yolo-image" accept="image/*">
+                <label for="yolo-image" class="file-label">Choose Image</label>
+                <span id="yolo-file-name" class="file-name">No file selected</span>
+            </div>
+            
+            <button id="btn-detect" class="btn primary-btn">Run Detection</button>
+            
+            <div id="yolo-result" class="result-box hidden">
+                <h3>Detected Objects</h3>
+                <ul class="content list"></ul>
+            </div>
+        </section>
+
+        <!-- Face Verification Section -->
+        <section class="glass-panel feature-section">
+            <div class="section-header">
+                <span class="icon">👤</span>
+                <h2>Face Verification (DeepFace)</h2>
+            </div>
+            <p class="subtitle">Match two suspect images to verify identity.</p>
+            
+            <div class="face-inputs">
+                <div class="file-upload">
+                    <input type="file" id="face-img1" accept="image/*">
+                    <label for="face-img1" class="file-label">Image 1</label>
+                    <span id="face1-name" class="file-name">No file selected</span>
+                </div>
+                <div class="file-upload">
+                    <input type="file" id="face-img2" accept="image/*">
+                    <label for="face-img2" class="file-label">Image 2</label>
+                    <span id="face2-name" class="file-name">No file selected</span>
+                </div>
+            </div>
+            
+            <button id="btn-verify" class="btn primary-btn">Verify Identity</button>
+            
+            <div id="face-result" class="result-box hidden">
+                <h3>Verification Result</h3>
+                <div class="content"></div>
+            </div>
+        </section>
+
+        <!-- Audio Transcription Section -->
+        <section class="glass-panel feature-section">
+            <div class="section-header">
+                <span class="icon">🎙️</span>
+                <h2>Audio Transcription (Whisper)</h2>
+            </div>
+            <p class="subtitle">Convert suspect statements and bodycam audio to text.</p>
+            
+            <div class="file-upload">
+                <input type="file" id="audio-file" accept="audio/*">
+                <label for="audio-file" class="file-label">Upload Audio</label>
+                <span id="audio-name" class="file-name">No file selected</span>
+            </div>
+            
+            <button id="btn-transcribe" class="btn primary-btn">Transcribe</button>
+            
+            <div id="audio-result" class="result-box hidden">
+                <h3>Transcription Text</h3>
+                <div class="content"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
