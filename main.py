@@ -166,7 +166,7 @@ async def transcribe_audio(file: UploadFile = File(...)):
 
         if whisper_model is None:
             # Load base model. Options: tiny, base, small, medium, large
-            whisper_model = whisper.load_model("base") 
+            whisper_model = whisper.load_model("tiny") 
 
         result = whisper_model.transcribe(temp_path)
         
