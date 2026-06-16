@@ -183,3 +183,19 @@ document.getElementById('btn-transcribe').addEventListener('click', async () => 
         btn.textContent = "Transcribe";
     }
 });
+
+// Download Transcription Logic
+document.getElementById('btn-download-transcription').addEventListener('click', () => {
+    const text = document.querySelector('#audio-result .content').textContent;
+    if (!text) return;
+    
+    const blob = new Blob([text], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "transcription.txt";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+});
