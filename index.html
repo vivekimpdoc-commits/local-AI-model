@@ -126,36 +126,35 @@
         <div class="nav-brand">
             <span class="nav-badge">🚔</span>
             <div>
-                <span class="nav-title">AI Intelligence Hub</span>
-                <span class="nav-subtitle">Police Edition</span>
+                <span class="nav-title" data-i18n="dash_title">🚔 AI Intelligence Hub</span>
+                <span class="nav-subtitle" data-i18n="dash_subtitle">Police Edition</span>
             </div>
         </div>
 
         <ul class="nav-links" id="nav-links">
-            <li><a href="#section-dashboard" class="nav-link active" id="nav-dashboard">
-                <span class="nav-icon">🏠</span><span>Dashboard</span>
+            <li>
+                <button id="lang-toggle-nav" class="btn primary-btn" onclick="toggleLanguage()" style="padding: 6px 12px; margin-right: 15px; font-size: 0.8rem; background: rgba(255,255,255,0.1); color: var(--text-main); border: 1px solid rgba(255,255,255,0.2);">
+                    <span data-i18n="nav_toggle_lang">हिंदी</span>
+                </button>
+            </li>
+            <li><a href="javascript:void(0)" class="nav-link active" onclick="openSection('section-dashboard')">
+                <span class="nav-icon">🏠</span><span data-i18n="nav_dashboard">Dashboard</span>
             </a></li>
-            <li><a href="#section-fir" class="nav-link" id="nav-fir">
-                <span class="nav-icon">📋</span><span>FIR Management</span>
+            <li><a href="javascript:void(0)" class="nav-link" onclick="openSection('section-fir')">
+                <span class="nav-icon">📋</span><span data-i18n="nav_doc">Documentation</span>
                 <span class="nav-badge-dot urgent">LIVE</span>
             </a></li>
-            <li><a href="#section-case" class="nav-link" id="nav-case">
-                <span class="nav-icon">📝</span><span>Case Analysis</span>
+            <li><a href="javascript:void(0)" class="nav-link" onclick="openSection('section-detect')">
+                <span class="nav-icon">🔬</span><span data-i18n="nav_ai">Forensics AI</span>
             </a></li>
-            <li><a href="#section-detect" class="nav-link" id="nav-detect">
-                <span class="nav-icon">👁️</span><span>Object Detection</span>
+            <li><a href="javascript:void(0)" class="nav-link" onclick="openSection('section-criminal')">
+                <span class="nav-icon">🔍</span><span data-i18n="nav_investigation">Investigation</span>
             </a></li>
-            <li><a href="#section-face" class="nav-link" id="nav-face">
-                <span class="nav-icon">👤</span><span>Face Verification</span>
+            <li><a href="javascript:void(0)" class="nav-link" onclick="openSection('section-station')">
+                <span class="nav-icon">🏢</span><span data-i18n="nav_station">Station Mgmt</span>
             </a></li>
-            <li><a href="#section-audio" class="nav-link" id="nav-audio">
-                <span class="nav-icon">🎙️</span><span>Audio Transcription</span>
-            </a></li>
-            <li><a href="#section-criminal" class="nav-link" id="nav-criminal">
-                <span class="nav-icon">🗂️</span><span>Criminal Database</span>
-            </a></li>
-            <li><a href="#section-reports" class="nav-link" id="nav-reports">
-                <span class="nav-icon">📊</span><span>Reports &amp; Logs</span>
+            <li><a href="javascript:void(0)" class="nav-link" onclick="openSection('section-reports')">
+                <span class="nav-icon">📊</span><span data-i18n="nav_reports">Reports</span>
             </a></li>
         </ul>
 
@@ -203,14 +202,13 @@
             <button class="sidebar-close" id="sidebar-close">✕</button>
         </div>
         <ul class="sidebar-links">
-            <li><a href="#section-dashboard" class="sidebar-link" onclick="closeSidebar()">🏠 Dashboard</a></li>
-            <li><a href="#section-fir" class="sidebar-link" onclick="closeSidebar()">📋 FIR Management <span class="nav-badge-dot urgent">LIVE</span></a></li>
-            <li><a href="#section-case" class="sidebar-link" onclick="closeSidebar()">📝 Case Analysis</a></li>
-            <li><a href="#section-detect" class="sidebar-link" onclick="closeSidebar()">👁️ Object Detection</a></li>
-            <li><a href="#section-face" class="sidebar-link" onclick="closeSidebar()">👤 Face Verification</a></li>
-            <li><a href="#section-audio" class="sidebar-link" onclick="closeSidebar()">🎙️ Audio Transcription</a></li>
-            <li><a href="#section-criminal" class="sidebar-link" onclick="closeSidebar()">🗂️ Criminal Database</a></li>
-            <li><a href="#section-reports" class="sidebar-link" onclick="closeSidebar()">📊 Reports &amp; Logs</a></li>
+            <li style="padding: 10px 20px;"><button class="btn primary-btn" onclick="toggleLanguage()" style="width:100%; padding: 8px; font-size: 0.9rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);"><span data-i18n="nav_toggle_lang">हिंदी</span></button></li>
+            <li><a href="javascript:void(0)" class="sidebar-link" onclick="openSection('section-dashboard'); closeSidebar()">🏠 <span data-i18n="nav_dashboard">Dashboard</span></a></li>
+            <li><a href="javascript:void(0)" class="sidebar-link" onclick="openSection('section-fir'); closeSidebar()">📋 <span data-i18n="nav_doc">Documentation</span> <span class="nav-badge-dot urgent">LIVE</span></a></li>
+            <li><a href="javascript:void(0)" class="sidebar-link" onclick="openSection('section-detect'); closeSidebar()">🔬 <span data-i18n="nav_ai">Forensics AI</span></a></li>
+            <li><a href="javascript:void(0)" class="sidebar-link" onclick="openSection('section-criminal'); closeSidebar()">🔍 <span data-i18n="nav_investigation">Investigation & DB</span></a></li>
+            <li><a href="javascript:void(0)" class="sidebar-link" onclick="openSection('section-station'); closeSidebar()">🏢 <span data-i18n="nav_station">Station Mgmt</span></a></li>
+            <li><a href="javascript:void(0)" class="sidebar-link" onclick="openSection('section-reports'); closeSidebar()">📊 <span data-i18n="nav_reports">Reports &amp; Logs</span></a></li>
         </ul>
     </aside>
     <!-- ===== END NAVIGATION ===== -->
@@ -218,19 +216,27 @@
     <!-- ===== PREMIUM DASHBOARD ===== -->
     <section id="section-dashboard" class="dashboard-section">
 
-        <!-- Top Row: Greeting + Clock -->
-        <div class="dash-top-row">
-            <div class="dash-greeting">
-                <p class="dash-greeting-sub">Welcome to</p>
-                <h2 class="dash-greeting-title">🚔 AI Intelligence Hub</h2>
-                <p class="dash-greeting-desc">Police Forensics &amp; Legal AI Toolkit &mdash; Offline Ready</p>
+        <div class="dash-greeting">
+            <div class="officer-info">
+                <div class="avatar">
+                    <img src="https://ui-avatars.com/api/?name=Police+Officer&background=6c5ce7&color=fff" alt="Officer">
+                </div>
+                <div>
+                    <div class="officer-name">Insp. Vikram Singh</div>
+                    <div class="officer-badge">ID: MH-2026-X8</div>
+                </div>
+            </div>
+            <div class="dash-greeting-text">
+                <p class="dash-greeting-sub" data-i18n="dash_welcome">Welcome to</p>
+                <h2 class="dash-greeting-title" data-i18n="dash_title">🚔 AI Intelligence Hub</h2>
+                <p class="dash-greeting-desc" data-i18n="dash_subtitle">Police Forensics &amp; Legal AI Toolkit &mdash; Offline Ready</p>
             </div>
             <div class="dash-clock-card">
                 <div class="dash-clock" id="dash-clock">00:00:00</div>
                 <div class="dash-date" id="dash-date">Loading...</div>
                 <div class="dash-system-badge">
                     <span class="status-dot online" style="width:8px;height:8px;"></span>
-                    <span>System Online</span>
+                    <span data-i18n="sys_online">System Online</span>
                 </div>
             </div>
         </div>
@@ -241,116 +247,78 @@
                 <div class="kpi-icon-wrap">📋</div>
                 <div class="kpi-info">
                     <span class="kpi-value" id="stat-fir">0</span>
-                    <span class="kpi-label">FIRs Generated</span>
-                    <span class="kpi-sub">Today&apos;s session</span>
+                    <span class="kpi-label" data-i18n="kpi_fir">FIRs Drafted</span>
                 </div>
-                <div class="kpi-sparkline kpi-sparkline-fir"></div>
             </div>
             <div class="kpi-card kpi-cases">
-                <div class="kpi-icon-wrap">🔍</div>
+                <div class="kpi-icon-wrap">📝</div>
                 <div class="kpi-info">
                     <span class="kpi-value" id="stat-cases">0</span>
-                    <span class="kpi-label">Cases Analyzed</span>
-                    <span class="kpi-sub">AI Ollama processed</span>
+                    <span class="kpi-label" data-i18n="kpi_cases">Cases Analyzed</span>
                 </div>
-                <div class="kpi-sparkline kpi-sparkline-cases"></div>
             </div>
             <div class="kpi-card kpi-faces">
                 <div class="kpi-icon-wrap">👤</div>
                 <div class="kpi-info">
                     <span class="kpi-value" id="stat-faces">0</span>
-                    <span class="kpi-label">Faces Verified</span>
-                    <span class="kpi-sub">DeepFace results</span>
+                    <span class="kpi-label" data-i18n="kpi_faces">Faces Scanned</span>
                 </div>
-                <div class="kpi-sparkline kpi-sparkline-faces"></div>
             </div>
             <div class="kpi-card kpi-audio">
                 <div class="kpi-icon-wrap">🎙️</div>
                 <div class="kpi-info">
                     <span class="kpi-value" id="stat-audio">0</span>
-                    <span class="kpi-label">Transcriptions</span>
-                    <span class="kpi-sub">Whisper AI output</span>
+                    <span class="kpi-label" data-i18n="kpi_audio">Audio Processed</span>
                 </div>
-                <div class="kpi-sparkline kpi-sparkline-audio"></div>
             </div>
         </div>
 
-        <!-- Middle Row: Quick Actions + System Status -->
-        <div class="dash-mid-row">
-
-            <!-- Quick Actions -->
-            <div class="dash-quick-actions">
-                <h3 class="dash-widget-title">⚡ Quick Actions</h3>
-                <div class="quick-action-grid">
-                    <button class="qa-btn qa-fir" onclick="openSection('section-fir')">
-                        <span class="qa-icon">📋</span>
-                        <span class="qa-label">Draft FIR</span>
-                    </button>
-                    <button class="qa-btn qa-case" onclick="openSection('section-case')">
-                        <span class="qa-icon">📝</span>
-                        <span class="qa-label">Analyze Case</span>
-                    </button>
-                    <button class="qa-btn qa-detect" onclick="openSection('section-detect')">
-                        <span class="qa-icon">👁️</span>
-                        <span class="qa-label">CCTV Detect</span>
-                    </button>
-                    <button class="qa-btn qa-face" onclick="openSection('section-face')">
-                        <span class="qa-icon">👤</span>
-                        <span class="qa-label">Face Match</span>
-                    </button>
-                    <button class="qa-btn qa-audio" onclick="openSection('section-audio')">
-                        <span class="qa-icon">🎙️</span>
-                        <span class="qa-label">Transcribe</span>
-                    </button>
-                    <button class="qa-btn qa-criminal" onclick="openSection('section-criminal')">
-                        <span class="qa-icon">🗂️</span>
-                        <span class="qa-label">Search DB</span>
-                    </button>
-                    <button class="qa-btn qa-reports" onclick="openSection('section-reports')">
-                        <span class="qa-icon">📊</span>
-                        <span class="qa-label">View Logs</span>
-                    </button>
-                    <button class="qa-btn qa-export" onclick="exportLogs()">
-                        <span class="qa-icon">⬇️</span>
-                        <span class="qa-label">Export</span>
-                    </button>
-                </div>
+        <!-- QUICK ACTIONS GRID -->
+        <div class="dash-quick-actions">
+            <h3 class="dash-widget-title" data-i18n="qa_title">⚡ Quick Actions</h3>
+            <div class="quick-action-grid">
+                <button class="qa-btn" onclick="openSection('section-fir')">
+                    <div class="qa-icon" style="background: rgba(255,107,107,0.1); color: #ff6b6b;">📝</div>
+                    <span data-i18n="qa_fir">Draft FIR</span>
+                </button>
+                <button class="qa-btn" onclick="openSection('section-case')">
+                    <div class="qa-icon" style="background: rgba(108,92,231,0.1); color: #6c5ce7;">⚖️</div>
+                    <span data-i18n="qa_case">Analyze Case</span>
+                </button>
+                <button class="qa-btn" onclick="openSection('section-detect')">
+                    <div class="qa-icon" style="background: rgba(0,206,201,0.1); color: #00cec9;">👁️</div>
+                    <span data-i18n="qa_detect">CCTV Detect</span>
+                </button>
+                <button class="qa-btn" onclick="openSection('section-face')">
+                    <div class="qa-icon" style="background: rgba(253,121,168,0.1); color: #fd79a8;">👤</div>
+                    <span data-i18n="qa_face">Face Match</span>
+                </button>
+                <button class="qa-btn" onclick="openSection('section-audio')">
+                    <div class="qa-icon" style="background: rgba(253,203,110,0.1); color: #fdcb6e;">🎙️</div>
+                    <span data-i18n="qa_audio">Transcribe</span>
+                </button>
+                <button class="qa-btn" onclick="openSection('section-criminal')">
+                    <div class="qa-icon" style="background: rgba(225,112,85,0.1); color: #e17055;">🗂️</div>
+                    <span data-i18n="qa_db">Search DB</span>
+                </button>
+                <button class="qa-btn" onclick="openSection('section-station')">
+                    <div class="qa-icon" style="background: rgba(253,203,110,0.1); color: #fdcb6e;">📅</div>
+                    <span data-i18n="qa_court">Court Dates</span>
+                </button>
+                <button class="qa-btn" onclick="exportLogs()">
+                    <div class="qa-icon" style="background: rgba(0,184,148,0.1); color: #00b894;">⬇️</div>
+                    <span data-i18n="qa_export">Export</span>
+                </button>
             </div>
+        </div>
 
+        <!-- Middle Row: System Status -->
+        <div class="dash-mid-row">
             <!-- System Status -->
             <div class="dash-system-status">
                 <h3 class="dash-widget-title">💻 System Status</h3>
                 <div class="sys-status-list">
-                    <div class="sys-item">
-                        <span class="sys-dot online"></span>
-                        <span class="sys-name">Ollama (LLM)</span>
-                        <span class="sys-tag tag-online">Running</span>
-                    </div>
-                    <div class="sys-item">
-                        <span class="sys-dot online"></span>
-                        <span class="sys-name">YOLOv8 (Detection)</span>
-                        <span class="sys-tag tag-online">Loaded</span>
-                    </div>
-                    <div class="sys-item">
-                        <span class="sys-dot online"></span>
-                        <span class="sys-name">DeepFace (Face AI)</span>
-                        <span class="sys-tag tag-online">Ready</span>
-                    </div>
-                    <div class="sys-item">
-                        <span class="sys-dot online"></span>
-                        <span class="sys-name">Whisper (Audio)</span>
-                        <span class="sys-tag tag-online">Ready</span>
-                    </div>
-                    <div class="sys-item">
-                        <span class="sys-dot warn"></span>
-                        <span class="sys-name">Network</span>
-                        <span class="sys-tag tag-warn">Offline Mode</span>
-                    </div>
-                    <div class="sys-item">
-                        <span class="sys-dot online"></span>
-                        <span class="sys-name">Criminal DB</span>
-                        <span class="sys-tag tag-online">Local Cache</span>
-                    </div>
+                    <!-- ... -->
                 </div>
 
                 <!-- Storage bar -->
@@ -366,40 +334,40 @@
             </div>
         </div>
 
-        <!-- Bottom: Recent Activity ticker -->
+        <!-- LIVE TICKER -->
         <div class="dash-activity-ticker">
-            <span class="ticker-label">📱 LIVE ACTIVITY</span>
+            <span class="ticker-label" data-i18n="ticker_label">📱 LIVE ACTIVITY</span>
             <div class="ticker-track" id="ticker-track">
-                <span class="ticker-item">✓ System initialized &nbsp;&nbsp;&nbsp; ✓ AI models loaded &nbsp;&nbsp;&nbsp; ✓ Database connected &nbsp;&nbsp;&nbsp; ✓ Ready for operations &nbsp;&nbsp;&nbsp; ✓ Waiting for officer input...</span>
+                <span class="ticker-item" data-i18n="ticker_text">✓ System initialized &nbsp;&nbsp;&nbsp; ✓ AI models loaded &nbsp;&nbsp;&nbsp; ✓ Database connected &nbsp;&nbsp;&nbsp; ✓ Ready for operations &nbsp;&nbsp;&nbsp; ✓ Waiting for officer input...</span>
             </div>
         </div>
 
     </section>
-    <!-- ===== END DASHBOARD ===== -->
 
     <!-- ===== PAGE CONTENT WRAPPER ===== -->
-    <div class="page-content">
+    <div class="page-content" style="display:none;">
 
         <!-- ══════════════════════════════════════
              SECTION GROUP 01 · DOCUMENTATION
         ══════════════════════════════════════ -->
+        <div class="tab-pane" id="pane-fir" style="display:none;">
         <div class="section-group-header">
             <span class="sg-num">01</span>
             <div class="sg-info">
-                <span class="sg-title">📋 Documentation & FIR</span>
-                <span class="sg-desc">Case file drafting, FIR templates, and legal analysis</span>
+                <span class="sg-title" data-i18n="sec_01_title">📋 Documentation & FIR</span>
+                <span class="sg-desc" data-i18n="sec_01_desc">Case file drafting, FIR templates, and legal analysis</span>
             </div>
             <div class="sg-line"></div>
         </div>
 
         <div class="tools-grid" id="section-fir">
             <!-- Case Analysis -->
-            <section class="tool-card tool-wide" id="section-case">
+            <section class="tool-card" id="section-case">
                 <div class="tool-card-header">
                     <div class="tool-badge badge-purple">AI</div>
                     <div class="tool-meta">
-                        <h2 class="tool-title">📝 Case Analysis</h2>
-                        <p class="tool-desc">Draft FIRs, summarize case files, and analyze legal documents using Ollama AI.</p>
+                        <h2 class="tool-title" data-i18n="tool_case_title">📝 Case Analysis</h2>
+                        <p class="tool-desc" data-i18n="tool_case_desc">Draft FIRs, extract evidence points, and identify sections from raw complaints.</p>
                     </div>
                     <span class="tool-engine">Ollama LLM</span>
                 </div>
@@ -421,12 +389,12 @@
             </section>
 
             <!-- FIR Templates -->
-            <section class="tool-card tool-wide">
+            <section class="tool-card">
                 <div class="tool-card-header">
                     <div class="tool-badge badge-pink">FIR</div>
                     <div class="tool-meta">
-                        <h2 class="tool-title">📋 FIR Quick Templates</h2>
-                        <p class="tool-desc">Police ke liye ready-made FIR templates — ek click mein fill karein.</p>
+                        <h2 class="tool-title" data-i18n="tool_fir_title">📋 FIR Quick Templates</h2>
+                        <p class="tool-desc" data-i18n="tool_fir_desc">Standard templates for common crimes (Theft, Assault, Cyber).</p>
                     </div>
                     <span class="tool-engine urgent-tag section-tag">LIVE</span>
                 </div>
@@ -446,37 +414,50 @@
                 </div>
             </section>
         </div>
+        </div> <!-- end pane-fir -->
 
         <!-- ══════════════════════════════════════
              SECTION GROUP 02 · FORENSICS AI
         ══════════════════════════════════════ -->
+        <div class="tab-pane" id="pane-detect" style="display:none;">
         <div class="section-group-header">
             <span class="sg-num">02</span>
             <div class="sg-info">
-                <span class="sg-title">🔬 Forensics AI Tools</span>
-                <span class="sg-desc">Object detection, face matching, and audio transcription</span>
+                <span class="sg-title" data-i18n="sec_02_title">🔬 Forensics AI Tools</span>
+                <span class="sg-desc" data-i18n="sec_02_desc">Object detection, face matching, and audio transcription</span>
             </div>
             <div class="sg-line"></div>
         </div>
 
-        <div class="tools-grid tools-3col">
+        <div class="tools-grid">
             <!-- Object Detection -->
             <section class="tool-card" id="section-detect">
                 <div class="tool-card-header">
                     <div class="tool-badge badge-cyan">CV</div>
                     <div class="tool-meta">
-                        <h2 class="tool-title">👁️ Object Detection</h2>
-                        <p class="tool-desc">Detect people, vehicles, and weapons in CCTV footage or images.</p>
+                        <h2 class="tool-title" data-i18n="tool_obj_title">👁️ Object Detection</h2>
+                        <p class="tool-desc" data-i18n="tool_obj_desc">Detect people, vehicles, and weapons in CCTV footage or images.</p>
                     </div>
                     <span class="tool-engine">YOLOv8</span>
                 </div>
                 <div class="tool-body">
-                    <div class="file-upload">
-                        <input type="file" id="yolo-image" accept="image/*">
-                        <label for="yolo-image" class="file-label">📁 Choose Image</label>
-                        <span id="yolo-file-name" class="file-name">No file selected</span>
+                    <div class="input-group">
+                        <label data-i18n="tool_obj_lbl1">Upload CCTV/Image:</label>
+                        <div class="file-upload">
+                            <input type="file" id="cv-file" accept="image/*,video/*">
+                            <label for="cv-file" class="file-label">📷 Browse Media</label>
+                            <span id="cv-name" class="file-name">No file selected</span>
+                        </div>
                     </div>
-                    <button id="btn-detect" class="btn primary-btn">▶ Run Detection</button>
+                    <div class="input-group">
+                        <label data-i18n="tool_obj_lbl2">Detect Objects:</label>
+                        <select id="cv-target">
+                            <option data-i18n="tool_obj_opt1">All Objects</option>
+                            <option data-i18n="tool_obj_opt2">Weapons Only</option>
+                            <option data-i18n="tool_obj_opt3">Vehicles Only</option>
+                        </select>
+                    </div>
+                    <button id="btn-detect" class="btn primary-btn" data-i18n="tool_obj_btn">▶ Analyze Image</button>
                     <div id="yolo-result" class="result-box hidden">
                         <h3>Detected Objects</h3>
                         <ul class="content list"></ul>
@@ -516,39 +497,41 @@
             </section>
 
             <!-- Audio Transcription -->
-            <section class="tool-card" id="section-audio">
+            <section class="tool-card tool-wide" id="section-audio">
                 <div class="tool-card-header">
                     <div class="tool-badge badge-yellow">STT</div>
                     <div class="tool-meta">
-                        <h2 class="tool-title">🎙️ Audio Transcription</h2>
-                        <p class="tool-desc">Convert suspect statements and bodycam audio to text.</p>
+                        <h2 class="tool-title" data-i18n="tool_audio_title">🎙️ Audio Transcription</h2>
+                        <p class="tool-desc" data-i18n="tool_audio_desc">Convert suspect statements and bodycam audio to text.</p>
                     </div>
                     <span class="tool-engine">Whisper AI</span>
                 </div>
                 <div class="tool-body">
                     <div class="file-upload">
                         <input type="file" id="audio-file" accept="audio/*">
-                        <label for="audio-file" class="file-label">🎵 Upload Audio</label>
+                        <label for="audio-file" class="file-label" data-i18n="tool_audio_up">🎵 Upload Audio</label>
                         <span id="audio-name" class="file-name">No file selected</span>
                     </div>
-                    <button id="btn-transcribe" class="btn primary-btn">▶ Transcribe</button>
+                    <button id="btn-transcribe" class="btn primary-btn" data-i18n="tool_audio_btn">▶ Transcribe</button>
                     <div id="audio-result" class="result-box hidden">
                         <h3>Transcription Text</h3>
                         <div class="content"></div>
-                        <button id="btn-download-transcription" class="btn primary-btn" style="margin-top:15px;">⬇️ Download as .txt</button>
+                        <button id="btn-download-transcription" class="btn primary-btn" style="margin-top:15px;" data-i18n="tool_audio_dl">⬇️ Download as .txt</button>
                     </div>
                 </div>
             </section>
         </div>
+        </div> <!-- end pane-detect -->
 
         <!-- ══════════════════════════════════════
              SECTION GROUP 03 · INVESTIGATION
         ══════════════════════════════════════ -->
+        <div class="tab-pane" id="pane-criminal" style="display:none;">
         <div class="section-group-header">
             <span class="sg-num">03</span>
             <div class="sg-info">
-                <span class="sg-title">🗂️ Investigation & Database</span>
-                <span class="sg-desc">Search suspects and criminal records</span>
+                <span class="sg-title" data-i18n="sec_03_title">🗂️ Investigation & Database</span>
+                <span class="sg-desc" data-i18n="sec_03_desc">Search suspects and criminal records</span>
             </div>
             <div class="sg-line"></div>
         </div>
@@ -558,15 +541,15 @@
                 <div class="tool-card-header">
                     <div class="tool-badge badge-orange">DB</div>
                     <div class="tool-meta">
-                        <h2 class="tool-title">🗂️ Criminal Database Search</h2>
-                        <p class="tool-desc">Naam, crime type, ya city se suspect records search karein.</p>
+                        <h2 class="tool-title" data-i18n="tool_db_title">🗂️ Criminal Database Search</h2>
+                        <p class="tool-desc" data-i18n="tool_db_desc">Search suspect records by name, crime type, or city.</p>
                     </div>
                     <span class="tool-engine">Local Cache</span>
                 </div>
                 <div class="tool-body">
                     <div class="criminal-search-row">
-                        <input type="text" id="criminal-search" placeholder="🔍  Naam, Crime Type, ya City daalo..." class="search-input criminal-input" onkeydown="if(event.key==='Enter')searchCriminal()">
-                        <button class="btn primary-btn criminal-btn" onclick="searchCriminal()">🔎 Search</button>
+                        <input type="text" id="criminal-search" placeholder="🔍 Enter Name, Crime Type, or City..." data-i18n-ph="tool_db_ph" class="search-input criminal-input" onkeydown="if(event.key==='Enter')searchCriminal()">
+                        <button class="btn primary-btn criminal-btn" onclick="searchCriminal()" data-i18n="tool_db_btn">🔎 Search</button>
                     </div>
                     <div id="criminal-result" class="result-box hidden">
                         <h3>Search Results</h3>
@@ -575,15 +558,87 @@
                 </div>
             </section>
         </div>
+        </div> <!-- end pane-criminal -->
 
         <!-- ══════════════════════════════════════
-             SECTION GROUP 04 · REPORTS
+             SECTION GROUP 04 · STATION MANAGEMENT
         ══════════════════════════════════════ -->
+        <div class="tab-pane" id="pane-station" style="display:none;">
         <div class="section-group-header">
             <span class="sg-num">04</span>
             <div class="sg-info">
-                <span class="sg-title">📊 Reports & Activity Logs</span>
-                <span class="sg-desc">Session summary and exportable activity log</span>
+                <span class="sg-title" data-i18n="sec_04_title">🏢 Station Management</span>
+                <span class="sg-desc" data-i18n="sec_04_desc">Daily office tasks, court dates, and evidence tracking</span>
+            </div>
+            <div class="sg-line"></div>
+        </div>
+
+        <div class="tools-grid" id="section-station">
+            <!-- Court Hearing Tracker -->
+            <section class="tool-card">
+                <div class="tool-card-header">
+                    <div class="tool-badge badge-yellow">CRT</div>
+                    <div class="tool-meta">
+                        <h2 class="tool-title" data-i18n="tool_crt_title">📅 Court Tracker</h2>
+                    </div>
+                    <span class="tool-engine">REMINDERS</span>
+                </div>
+                <div class="tool-body">
+                    <div class="input-group">
+                        <label data-i18n="tool_crt_lbl1">Case Number / Details:</label>
+                        <input type="text" id="court-case-no" placeholder="e.g. FIR-2026-102 (High Court)" data-i18n-ph="tool_crt_ph1" style="width:100%;background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.09);color:var(--text-main);padding:10px 14px;border-radius:10px;margin-bottom:10px;font-family:inherit;font-size:0.9rem;outline:none;">
+                    </div>
+                    <div class="criminal-search-row">
+                        <input type="date" id="court-date" class="criminal-input" style="background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.09);color:var(--text-main);border-radius:10px;font-family:inherit;outline:none;">
+                        <button class="btn primary-btn criminal-btn" onclick="addCourtDate()" data-i18n="tool_crt_btn">Add Date</button>
+                    </div>
+                    <div id="court-list" style="margin-top:15px;display:flex;flex-direction:column;gap:8px;">
+                        <div style="background:rgba(253,203,110,0.1);border:1px solid rgba(253,203,110,0.3);padding:10px;border-radius:8px;font-size:0.85rem;color:var(--text-main);display:flex;justify-content:space-between;align-items:center;">
+                            <span><strong>FIR-2026-089</strong></span>
+                            <span style="color:#fdcb6e;font-weight:700;font-size:0.75rem;">TOMORROW</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Evidence Log -->
+            <section class="tool-card">
+                <div class="tool-card-header">
+                    <div class="tool-badge badge-orange">EVD</div>
+                    <div class="tool-meta">
+                        <h2 class="tool-title" data-i18n="tool_evd_title">📦 Evidence Log</h2>
+                    </div>
+                    <span class="tool-engine">TRACKING</span>
+                </div>
+                <div class="tool-body">
+                    <div class="input-group">
+                        <label data-i18n="tool_evd_lbl1">Item Description:</label>
+                        <input type="text" id="ev-desc" placeholder="e.g. Blood-stained shirt (Bag A)" data-i18n-ph="tool_evd_ph1" style="width:100%;background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.09);color:var(--text-main);padding:10px 14px;border-radius:10px;margin-bottom:10px;font-family:inherit;font-size:0.9rem;outline:none;">
+                    </div>
+                    <div class="input-group">
+                        <label data-i18n="tool_evd_lbl2">Current Status:</label>
+                        <select id="ev-status" style="margin-bottom:10px;">
+                            <option>In Malkhana (Secure)</option>
+                            <option>Sent to FSL (Forensics)</option>
+                            <option>Produced in Court</option>
+                            <option>Released/Disposed</option>
+                        </select>
+                    </div>
+                    <button class="btn primary-btn" onclick="updateEvidence()" style="width:100%;" data-i18n="tool_evd_btn">Log Evidence Movement</button>
+                </div>
+            </section>
+        </div>
+        </div> <!-- end pane-station -->
+
+        <!-- ══════════════════════════════════════
+             SECTION GROUP 05 · REPORTS
+        ══════════════════════════════════════ -->
+        <div class="tab-pane" id="pane-reports" style="display:none;">
+        <div class="section-group-header">
+            <span class="sg-num">05</span>
+            <div class="sg-info">
+                <span class="sg-title" data-i18n="sec_05_title">📊 Reports & Activity Logs</span>
+                <span class="sg-desc" data-i18n="sec_05_desc">Session summary and exportable activity log</span>
             </div>
             <div class="sg-line"></div>
         </div>
@@ -593,10 +648,10 @@
                 <div class="tool-card-header">
                     <div class="tool-badge badge-green">LOG</div>
                     <div class="tool-meta">
-                        <h2 class="tool-title">📊 Session Report</h2>
-                        <p class="tool-desc">Aaj ki saari AI activity ka complete record — automatically tracked.</p>
+                        <h2 class="tool-title" data-i18n="tool_rep_title">📊 Session Report</h2>
+                        <p class="tool-desc" data-i18n="tool_rep_desc">Complete record of all AI activity today — automatically tracked.</p>
                     </div>
-                    <button class="btn primary-btn" onclick="exportLogs()" style="padding:8px 18px;font-size:0.82rem;width:auto;">⬇️ Export .txt</button>
+                    <button class="btn primary-btn" onclick="exportLogs()" style="padding:8px 18px;font-size:0.82rem;width:auto;" data-i18n="tool_rep_btn">⬇️ Export .txt</button>
                 </div>
                 <div class="tool-body">
                     <div class="reports-grid">
@@ -628,42 +683,71 @@
             </section>
         </div>
 
+        </div> <!-- end pane-reports -->
     </div><!-- end .page-content -->
 
     <footer class="site-footer">
         <p>🚔 AI Intelligence Hub — Police Edition &nbsp;|&nbsp; Offline Forensics Toolkit &nbsp;|&nbsp; <strong>Confidential Use Only</strong></p>
     </footer>
 
+    <script src="lang.js"></script>
     <script src="script.js"></script>
     <script>
         // =====================================================
         // SECTION NAVIGATION — openSection(id)
-        // Called by Quick Action buttons
+        // Called by Nav menus and Quick Actions
         // =====================================================
         function openSection(sectionId) {
-            const target = document.getElementById(sectionId);
-            if (!target) return;
+            // Mapping from specific tools/scroll targets to their parent Tab Panes
+            const tabMap = {
+                'section-dashboard': 'section-dashboard',
+                'section-fir': 'pane-fir',
+                'section-case': 'pane-fir', // Fallback for case tool
+                'section-detect': 'pane-detect',
+                'section-face': 'pane-detect',
+                'section-audio': 'pane-detect',
+                'section-criminal': 'pane-criminal',
+                'section-station': 'pane-station',
+                'section-reports': 'pane-reports'
+            };
 
-            // Find the closest tool-card or tools-grid wrapper
-            // Expand if it has a collapsed tool-body
-            const toolCard = target.closest('.tool-card') || target.querySelector('.tool-card');
+            const targetPaneId = tabMap[sectionId] || sectionId;
 
-            if (toolCard) {
-                expandCard(toolCard);
+            // Handle dashboard pane visibility
+            if (targetPaneId === 'section-dashboard') {
+                document.getElementById('section-dashboard').style.display = 'block';
+                document.querySelector('.page-content').style.display = 'none';
             } else {
-                // It's a grid wrapper — expand all tool-cards inside
-                target.querySelectorAll('.tool-card').forEach(card => expandCard(card));
+                document.getElementById('section-dashboard').style.display = 'none';
+                document.querySelector('.page-content').style.display = 'block';
+                
+                // Hide all tab panes in page-content
+                document.querySelectorAll('.tab-pane').forEach(pane => {
+                    if(pane.id !== 'section-dashboard') pane.style.display = 'none';
+                });
+                
+                // Show target pane
+                const targetPane = document.getElementById(targetPaneId);
+                if (targetPane) targetPane.style.display = 'block';
             }
 
-            // Smooth scroll with navbar offset
-            setTimeout(() => {
-                const navbarHeight = document.getElementById('navbar')?.offsetHeight || 64;
-                const top = target.getBoundingClientRect().top + window.scrollY - navbarHeight - 12;
-                window.scrollTo({ top, behavior: 'smooth' });
+            // Also update Active state on the Navbar links
+            document.querySelectorAll('.nav-link, .sidebar-link').forEach(link => {
+                link.classList.remove('active');
+                if(link.getAttribute('onclick')?.includes(sectionId)) {
+                    link.classList.add('active');
+                }
+            });
 
-                // Highlight animation after scroll settles
-                setTimeout(() => highlightSection(target), 500);
-            }, 80);
+            // If a specific tool card was targeted inside the pane (like section-case)
+            const targetElement = document.getElementById(sectionId);
+            if (targetElement && targetElement.classList.contains('tool-card')) {
+                expandCard(targetElement);
+                highlightSection(targetElement);
+            }
+
+            // Scroll cleanly to the top of the content
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function expandCard(card) {
@@ -735,6 +819,34 @@
         if (document.readyState !== 'loading') initCollapsible();
 
         // =====================================================
+        // STATION MANAGEMENT FUNCTIONS
+        // =====================================================
+        function addCourtDate() {
+            const caseNo = document.getElementById('court-case-no').value;
+            const date = document.getElementById('court-date').value;
+            if(!caseNo || !date) {
+                showToast("Please enter case details and select a date!");
+                return;
+            }
+            showToast("Court date reminder added for " + caseNo);
+            logActivity(`Court Date Added: ${caseNo} on ${date}`);
+            document.getElementById('court-case-no').value = '';
+            document.getElementById('court-date').value = '';
+        }
+
+        function updateEvidence() {
+            const desc = document.getElementById('ev-desc').value;
+            const status = document.getElementById('ev-status').value;
+            if(!desc) {
+                showToast("Please enter evidence description!");
+                return;
+            }
+            showToast("Evidence log updated successfully!");
+            logActivity(`Evidence Updated: ${desc} -> ${status}`);
+            document.getElementById('ev-desc').value = '';
+        }
+
+        // =====================================================
         // LIVE CLOCK =====
         function updateClock() {
             const now = new Date();
@@ -792,19 +904,7 @@
             hamburgerBtn.classList.remove('active');
         }
 
-        // Active nav link on scroll
-        const sections = ['section-dashboard','section-fir','section-case','section-detect','section-face','section-audio','section-criminal','section-emergency','section-reports'];
-        const navMap = {'section-dashboard':'nav-dashboard','section-fir':'nav-fir','section-case':'nav-case','section-detect':'nav-detect','section-face':'nav-face','section-audio':'nav-audio','section-criminal':'nav-criminal','section-emergency':'nav-emergency','section-reports':'nav-reports'};
-        window.addEventListener('scroll', () => {
-            let current = 'section-dashboard';
-            sections.forEach(id => {
-                const el = document.getElementById(id);
-                if (el && window.scrollY >= el.offsetTop - 120) current = id;
-            });
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            const activeLink = document.getElementById(navMap[current]);
-            if (activeLink) activeLink.classList.add('active');
-        });
+        // Scroll listener removed — Active links are now handled directly by the openSection() Tab Switcher.
 
         // ===== STAT COUNTERS =====
         const stats = { fir: 0, cases: 0, faces: 0, audio: 0 };
