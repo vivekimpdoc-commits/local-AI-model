@@ -3,123 +3,1096 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Intelligence Hub</title>
+    <title>AI Intelligence Hub — Police Edition</title>
+    <meta name="description" content="Police AI Intelligence Hub: Offline Legal & Forensics Analysis Toolkit for FIR drafting, object detection, face verification, and audio transcription.">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+    <!-- ===== POLICE SECURE LOGIN OVERLAY ===== -->
+    <div class="login-overlay" id="login-overlay">
+        <div class="login-bg-orbs">
+            <div class="login-orb lo-1"></div>
+            <div class="login-orb lo-2"></div>
+            <div class="login-orb lo-3"></div>
+        </div>
+
+        <div class="login-box" id="login-box">
+            <!-- Header -->
+            <div class="login-header">
+                <div class="login-emblem">
+                    <span class="emblem-icon">🚔</span>
+                    <div class="emblem-rings"><span></span><span></span></div>
+                </div>
+                <h2 class="login-title">POLICE SECURE ACCESS</h2>
+                <p class="login-subtitle">AI Intelligence Hub &mdash; Authorized Personnel Only</p>
+                <div class="login-divider"></div>
+            </div>
+
+            <!-- Alert Box -->
+            <div class="login-alert" id="login-alert">
+                <span id="login-alert-text">⚠️ Invalid credentials. Try again.</span>
+            </div>
+
+            <!-- Login Form -->
+            <form class="login-form" id="login-form" onsubmit="return false;">
+                <div class="login-field">
+                    <label for="login-badge">🛡️ Badge / Officer ID</label>
+                    <div class="login-input-wrap">
+                        <input type="text" id="login-badge" placeholder="e.g. POL001" autocomplete="off" maxlength="10">
+                        <span class="input-icon">🛡️</span>
+                    </div>
+                </div>
+
+                <div class="login-field">
+                    <label for="login-pass">🔒 Password</label>
+                    <div class="login-input-wrap">
+                        <input type="password" id="login-pass" placeholder="Enter password" autocomplete="off">
+                        <span class="input-icon" id="toggle-pass" onclick="togglePassword()" style="cursor:pointer;">👁️</span>
+                    </div>
+                </div>
+
+                <div class="login-field">
+                    <label for="login-station">🏗️ Police Station</label>
+                    <div class="login-input-wrap">
+                        <select id="login-station">
+                            <option value="">-- Select Station --</option>
+                            <option value="Delhi HQ">Delhi Police HQ</option>
+                            <option value="Mumbai Central">Mumbai Central</option>
+                            <option value="Lucknow CID">Lucknow CID</option>
+                            <option value="Hyderabad Cyber">Hyderabad Cyber Cell</option>
+                            <option value="Pune Crime">Pune Crime Branch</option>
+                            <option value="Chennai COD">Chennai COD</option>
+                            <option value="Kolkata SB">Kolkata Special Branch</option>
+                        </select>
+                        <span class="input-icon">🏗️</span>
+                    </div>
+                </div>
+
+                <div class="login-field">
+                    <label>🕐 Duty Shift</label>
+                    <div class="shift-selector">
+                        <label class="shift-opt" id="shift-morning">
+                            <input type="radio" name="shift" value="Morning (6AM-2PM)"> 🌅 Morning
+                        </label>
+                        <label class="shift-opt" id="shift-evening">
+                            <input type="radio" name="shift" value="Evening (2PM-10PM)"> 🌇 Evening
+                        </label>
+                        <label class="shift-opt" id="shift-night">
+                            <input type="radio" name="shift" value="Night (10PM-6AM)"> 🌙 Night
+                        </label>
+                    </div>
+                </div>
+
+                <!-- CAPTCHA -->
+                <div class="login-captcha" id="captcha-box">
+                    <span>Security Check: <strong id="cap-q"></strong> = ?</span>
+                    <input type="number" id="cap-ans" placeholder="Answer" style="width:80px;">
+                </div>
+
+                <button type="submit" class="login-btn" id="login-submit" onclick="doLogin()">
+                    <span id="login-btn-text">🔓 LOGIN TO SYSTEM</span>
+                    <span class="login-spinner hidden" id="login-spinner"></span>
+                </button>
+            </form>
+
+            <!-- Demo credentials hint -->
+            <div class="demo-hint">
+                <p>💡 <strong>Demo Credentials:</strong></p>
+                <div class="demo-creds">
+                    <span onclick="fillDemo('POL001','police@123')">POL001 / police@123</span>
+                    <span onclick="fillDemo('SP101','sp@2024')">SP101 / sp@2024</span>
+                    <span onclick="fillDemo('INS202','inspector@1')">INS202 / inspector@1</span>
+                </div>
+            </div>
+
+            <p class="login-warning">⚠️ Unauthorized access is a criminal offense under IT Act 2000.</p>
+        </div>
+    </div>
+    <!-- ===== END LOGIN OVERLAY ===== -->
+
+    <!-- Main app wrapper (hidden until login) -->
+    <div id="app-wrapper" class="app-hidden">
+
     <div class="background-orbs">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
         <div class="orb orb-3"></div>
     </div>
 
-    <header>
-        <h1>AI Intelligence Hub</h1>
-        <p>Offline Legal & Forensics Analysis Toolkit</p>
-    </header>
+    <!-- ===== NAVIGATION MENU ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-brand">
+            <span class="nav-badge">🚔</span>
+            <div>
+                <span class="nav-title">AI Intelligence Hub</span>
+                <span class="nav-subtitle">Police Edition</span>
+            </div>
+        </div>
 
-    <main class="container">
-        <!-- Text Analysis Section -->
-        <section class="glass-panel feature-section">
-            <div class="section-header">
-                <span class="icon">📝</span>
-                <h2>Case Analysis (Ollama)</h2>
-            </div>
-            <p class="subtitle">Draft FIRs, summarize case files, and analyze legal documents.</p>
-            
-            <div class="input-group">
-                <label for="llm-model">Select Model:</label>
-                <select id="llm-model">
-                    <option value="llama3">Llama 3</option>
-                    <option value="mistral">Mistral 7B</option>
-                </select>
-            </div>
-            
-            <textarea id="llm-text" rows="5" placeholder="Enter case details or legal text here..."></textarea>
-            <button id="btn-analyze" class="btn primary-btn">Analyze Case</button>
-            
-            <div id="llm-result" class="result-box hidden">
-                <h3>Analysis Report</h3>
-                <div class="content"></div>
-            </div>
-        </section>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#section-dashboard" class="nav-link active" id="nav-dashboard">
+                <span class="nav-icon">🏠</span><span>Dashboard</span>
+            </a></li>
+            <li><a href="#section-fir" class="nav-link" id="nav-fir">
+                <span class="nav-icon">📋</span><span>FIR Management</span>
+                <span class="nav-badge-dot urgent">LIVE</span>
+            </a></li>
+            <li><a href="#section-case" class="nav-link" id="nav-case">
+                <span class="nav-icon">📝</span><span>Case Analysis</span>
+            </a></li>
+            <li><a href="#section-detect" class="nav-link" id="nav-detect">
+                <span class="nav-icon">👁️</span><span>Object Detection</span>
+            </a></li>
+            <li><a href="#section-face" class="nav-link" id="nav-face">
+                <span class="nav-icon">👤</span><span>Face Verification</span>
+            </a></li>
+            <li><a href="#section-audio" class="nav-link" id="nav-audio">
+                <span class="nav-icon">🎙️</span><span>Audio Transcription</span>
+            </a></li>
+            <li><a href="#section-criminal" class="nav-link" id="nav-criminal">
+                <span class="nav-icon">🗂️</span><span>Criminal Database</span>
+            </a></li>
+            <li><a href="#section-reports" class="nav-link" id="nav-reports">
+                <span class="nav-icon">📊</span><span>Reports &amp; Logs</span>
+            </a></li>
+        </ul>
 
-        <!-- Object Detection Section -->
-        <section class="glass-panel feature-section">
-            <div class="section-header">
-                <span class="icon">👁️</span>
-                <h2>Object Detection (YOLOv8)</h2>
+        <div class="nav-right">
+            <div class="status-indicator">
+                <span class="status-dot online"></span>
+                <span class="status-text">System Online</span>
             </div>
-            <p class="subtitle">Detect people, vehicles, and weapons in CCTV footage or images.</p>
-            
-            <div class="file-upload">
-                <input type="file" id="yolo-image" accept="image/*">
-                <label for="yolo-image" class="file-label">Choose Image</label>
-                <span id="yolo-file-name" class="file-name">No file selected</span>
-            </div>
-            
-            <button id="btn-detect" class="btn primary-btn">Run Detection</button>
-            
-            <div id="yolo-result" class="result-box hidden">
-                <h3>Detected Objects</h3>
-                <ul class="content list"></ul>
-            </div>
-        </section>
-
-        <!-- Face Verification Section -->
-        <section class="glass-panel feature-section">
-            <div class="section-header">
-                <span class="icon">👤</span>
-                <h2>Face Verification (DeepFace)</h2>
-            </div>
-            <p class="subtitle">Match two suspect images to verify identity.</p>
-            
-            <div class="face-inputs">
-                <div class="file-upload">
-                    <input type="file" id="face-img1" accept="image/*">
-                    <label for="face-img1" class="file-label">Image 1</label>
-                    <span id="face1-name" class="file-name">No file selected</span>
+            <!-- Officer Profile Chip -->
+            <div class="officer-chip" id="officer-chip">
+                <span class="officer-avatar">👮</span>
+                <div class="officer-info">
+                    <span class="officer-name" id="nav-officer-name">Officer</span>
+                    <span class="officer-badge" id="nav-officer-badge">---</span>
                 </div>
-                <div class="file-upload">
-                    <input type="file" id="face-img2" accept="image/*">
-                    <label for="face-img2" class="file-label">Image 2</label>
-                    <span id="face2-name" class="file-name">No file selected</span>
+                <div class="officer-dropdown" id="officer-dropdown">
+                    <div class="od-header">
+                        <span class="od-icon">👮‍♂️</span>
+                        <div>
+                            <strong id="od-name">Officer</strong>
+                            <span id="od-badge">---</span>
+                            <span id="od-station">🏗️ ---</span>
+                            <span id="od-shift">🕐 ---</span>
+                            <span id="od-login-time">⏰ ---</span>
+                        </div>
+                    </div>
+                    <div class="od-divider"></div>
+                    <button class="od-logout" onclick="doLogout()">🚪 Logout / End Shift</button>
                 </div>
             </div>
-            
-            <button id="btn-verify" class="btn primary-btn">Verify Identity</button>
-            
-            <div id="face-result" class="result-box hidden">
-                <h3>Verification Result</h3>
-                <div class="content"></div>
-            </div>
-        </section>
+            <button class="hamburger" id="hamburger-btn" aria-label="Toggle Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
 
-        <!-- Audio Transcription Section -->
-        <section class="glass-panel feature-section">
-            <div class="section-header">
-                <span class="icon">🎙️</span>
-                <h2>Audio Transcription (Whisper)</h2>
+    <!-- Mobile Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Mobile Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span class="nav-badge">🚔</span>
+            <span class="nav-title">Police AI Hub</span>
+            <button class="sidebar-close" id="sidebar-close">✕</button>
+        </div>
+        <ul class="sidebar-links">
+            <li><a href="#section-dashboard" class="sidebar-link" onclick="closeSidebar()">🏠 Dashboard</a></li>
+            <li><a href="#section-fir" class="sidebar-link" onclick="closeSidebar()">📋 FIR Management <span class="nav-badge-dot urgent">LIVE</span></a></li>
+            <li><a href="#section-case" class="sidebar-link" onclick="closeSidebar()">📝 Case Analysis</a></li>
+            <li><a href="#section-detect" class="sidebar-link" onclick="closeSidebar()">👁️ Object Detection</a></li>
+            <li><a href="#section-face" class="sidebar-link" onclick="closeSidebar()">👤 Face Verification</a></li>
+            <li><a href="#section-audio" class="sidebar-link" onclick="closeSidebar()">🎙️ Audio Transcription</a></li>
+            <li><a href="#section-criminal" class="sidebar-link" onclick="closeSidebar()">🗂️ Criminal Database</a></li>
+            <li><a href="#section-reports" class="sidebar-link" onclick="closeSidebar()">📊 Reports &amp; Logs</a></li>
+        </ul>
+    </aside>
+    <!-- ===== END NAVIGATION ===== -->
+
+    <!-- ===== PREMIUM DASHBOARD ===== -->
+    <section id="section-dashboard" class="dashboard-section">
+
+        <!-- Top Row: Greeting + Clock -->
+        <div class="dash-top-row">
+            <div class="dash-greeting">
+                <p class="dash-greeting-sub">Welcome to</p>
+                <h2 class="dash-greeting-title">🚔 AI Intelligence Hub</h2>
+                <p class="dash-greeting-desc">Police Forensics &amp; Legal AI Toolkit &mdash; Offline Ready</p>
             </div>
-            <p class="subtitle">Convert suspect statements and bodycam audio to text.</p>
-            
-            <div class="file-upload">
-                <input type="file" id="audio-file" accept="audio/*">
-                <label for="audio-file" class="file-label">Upload Audio</label>
-                <span id="audio-name" class="file-name">No file selected</span>
+            <div class="dash-clock-card">
+                <div class="dash-clock" id="dash-clock">00:00:00</div>
+                <div class="dash-date" id="dash-date">Loading...</div>
+                <div class="dash-system-badge">
+                    <span class="status-dot online" style="width:8px;height:8px;"></span>
+                    <span>System Online</span>
+                </div>
             </div>
-            
-            <button id="btn-transcribe" class="btn primary-btn">Transcribe</button>
-            
-            <div id="audio-result" class="result-box hidden">
-                <h3>Transcription Text</h3>
-                <div class="content"></div>
-                <button id="btn-download-transcription" class="btn primary-btn" style="margin-top: 15px;">Download as .txt</button>
+        </div>
+
+        <!-- KPI Cards Row -->
+        <div class="dash-kpi-grid">
+            <div class="kpi-card kpi-fir">
+                <div class="kpi-icon-wrap">📋</div>
+                <div class="kpi-info">
+                    <span class="kpi-value" id="stat-fir">0</span>
+                    <span class="kpi-label">FIRs Generated</span>
+                    <span class="kpi-sub">Today&apos;s session</span>
+                </div>
+                <div class="kpi-sparkline kpi-sparkline-fir"></div>
             </div>
-        </section>
-    </main>
+            <div class="kpi-card kpi-cases">
+                <div class="kpi-icon-wrap">🔍</div>
+                <div class="kpi-info">
+                    <span class="kpi-value" id="stat-cases">0</span>
+                    <span class="kpi-label">Cases Analyzed</span>
+                    <span class="kpi-sub">AI Ollama processed</span>
+                </div>
+                <div class="kpi-sparkline kpi-sparkline-cases"></div>
+            </div>
+            <div class="kpi-card kpi-faces">
+                <div class="kpi-icon-wrap">👤</div>
+                <div class="kpi-info">
+                    <span class="kpi-value" id="stat-faces">0</span>
+                    <span class="kpi-label">Faces Verified</span>
+                    <span class="kpi-sub">DeepFace results</span>
+                </div>
+                <div class="kpi-sparkline kpi-sparkline-faces"></div>
+            </div>
+            <div class="kpi-card kpi-audio">
+                <div class="kpi-icon-wrap">🎙️</div>
+                <div class="kpi-info">
+                    <span class="kpi-value" id="stat-audio">0</span>
+                    <span class="kpi-label">Transcriptions</span>
+                    <span class="kpi-sub">Whisper AI output</span>
+                </div>
+                <div class="kpi-sparkline kpi-sparkline-audio"></div>
+            </div>
+        </div>
+
+        <!-- Middle Row: Quick Actions + System Status -->
+        <div class="dash-mid-row">
+
+            <!-- Quick Actions -->
+            <div class="dash-quick-actions">
+                <h3 class="dash-widget-title">⚡ Quick Actions</h3>
+                <div class="quick-action-grid">
+                    <button class="qa-btn qa-fir" onclick="openSection('section-fir')">
+                        <span class="qa-icon">📋</span>
+                        <span class="qa-label">Draft FIR</span>
+                    </button>
+                    <button class="qa-btn qa-case" onclick="openSection('section-case')">
+                        <span class="qa-icon">📝</span>
+                        <span class="qa-label">Analyze Case</span>
+                    </button>
+                    <button class="qa-btn qa-detect" onclick="openSection('section-detect')">
+                        <span class="qa-icon">👁️</span>
+                        <span class="qa-label">CCTV Detect</span>
+                    </button>
+                    <button class="qa-btn qa-face" onclick="openSection('section-face')">
+                        <span class="qa-icon">👤</span>
+                        <span class="qa-label">Face Match</span>
+                    </button>
+                    <button class="qa-btn qa-audio" onclick="openSection('section-audio')">
+                        <span class="qa-icon">🎙️</span>
+                        <span class="qa-label">Transcribe</span>
+                    </button>
+                    <button class="qa-btn qa-criminal" onclick="openSection('section-criminal')">
+                        <span class="qa-icon">🗂️</span>
+                        <span class="qa-label">Search DB</span>
+                    </button>
+                    <button class="qa-btn qa-reports" onclick="openSection('section-reports')">
+                        <span class="qa-icon">📊</span>
+                        <span class="qa-label">View Logs</span>
+                    </button>
+                    <button class="qa-btn qa-export" onclick="exportLogs()">
+                        <span class="qa-icon">⬇️</span>
+                        <span class="qa-label">Export</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- System Status -->
+            <div class="dash-system-status">
+                <h3 class="dash-widget-title">💻 System Status</h3>
+                <div class="sys-status-list">
+                    <div class="sys-item">
+                        <span class="sys-dot online"></span>
+                        <span class="sys-name">Ollama (LLM)</span>
+                        <span class="sys-tag tag-online">Running</span>
+                    </div>
+                    <div class="sys-item">
+                        <span class="sys-dot online"></span>
+                        <span class="sys-name">YOLOv8 (Detection)</span>
+                        <span class="sys-tag tag-online">Loaded</span>
+                    </div>
+                    <div class="sys-item">
+                        <span class="sys-dot online"></span>
+                        <span class="sys-name">DeepFace (Face AI)</span>
+                        <span class="sys-tag tag-online">Ready</span>
+                    </div>
+                    <div class="sys-item">
+                        <span class="sys-dot online"></span>
+                        <span class="sys-name">Whisper (Audio)</span>
+                        <span class="sys-tag tag-online">Ready</span>
+                    </div>
+                    <div class="sys-item">
+                        <span class="sys-dot warn"></span>
+                        <span class="sys-name">Network</span>
+                        <span class="sys-tag tag-warn">Offline Mode</span>
+                    </div>
+                    <div class="sys-item">
+                        <span class="sys-dot online"></span>
+                        <span class="sys-name">Criminal DB</span>
+                        <span class="sys-tag tag-online">Local Cache</span>
+                    </div>
+                </div>
+
+                <!-- Storage bar -->
+                <div class="sys-storage">
+                    <div class="sys-storage-label">
+                        <span>💾 Local Storage</span>
+                        <span id="storage-used">Calculating...</span>
+                    </div>
+                    <div class="sys-storage-bar">
+                        <div class="sys-storage-fill" id="storage-bar" style="width:12%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom: Recent Activity ticker -->
+        <div class="dash-activity-ticker">
+            <span class="ticker-label">📱 LIVE ACTIVITY</span>
+            <div class="ticker-track" id="ticker-track">
+                <span class="ticker-item">✓ System initialized &nbsp;&nbsp;&nbsp; ✓ AI models loaded &nbsp;&nbsp;&nbsp; ✓ Database connected &nbsp;&nbsp;&nbsp; ✓ Ready for operations &nbsp;&nbsp;&nbsp; ✓ Waiting for officer input...</span>
+            </div>
+        </div>
+
+    </section>
+    <!-- ===== END DASHBOARD ===== -->
+
+    <!-- ===== PAGE CONTENT WRAPPER ===== -->
+    <div class="page-content">
+
+        <!-- ══════════════════════════════════════
+             SECTION GROUP 01 · DOCUMENTATION
+        ══════════════════════════════════════ -->
+        <div class="section-group-header">
+            <span class="sg-num">01</span>
+            <div class="sg-info">
+                <span class="sg-title">📋 Documentation & FIR</span>
+                <span class="sg-desc">Case file drafting, FIR templates, and legal analysis</span>
+            </div>
+            <div class="sg-line"></div>
+        </div>
+
+        <div class="tools-grid" id="section-fir">
+            <!-- Case Analysis -->
+            <section class="tool-card tool-wide" id="section-case">
+                <div class="tool-card-header">
+                    <div class="tool-badge badge-purple">AI</div>
+                    <div class="tool-meta">
+                        <h2 class="tool-title">📝 Case Analysis</h2>
+                        <p class="tool-desc">Draft FIRs, summarize case files, and analyze legal documents using Ollama AI.</p>
+                    </div>
+                    <span class="tool-engine">Ollama LLM</span>
+                </div>
+                <div class="tool-body">
+                    <div class="input-group">
+                        <label for="llm-model">Select AI Model:</label>
+                        <select id="llm-model">
+                            <option value="llama3">Llama 3</option>
+                            <option value="mistral">Mistral 7B</option>
+                        </select>
+                    </div>
+                    <textarea id="llm-text" rows="5" placeholder="Enter case details or legal text here..."></textarea>
+                    <button id="btn-analyze" class="btn primary-btn">Analyze Case</button>
+                    <div id="llm-result" class="result-box hidden">
+                        <h3>Analysis Report</h3>
+                        <div class="content"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FIR Templates -->
+            <section class="tool-card tool-wide">
+                <div class="tool-card-header">
+                    <div class="tool-badge badge-pink">FIR</div>
+                    <div class="tool-meta">
+                        <h2 class="tool-title">📋 FIR Quick Templates</h2>
+                        <p class="tool-desc">Police ke liye ready-made FIR templates — ek click mein fill karein.</p>
+                    </div>
+                    <span class="tool-engine urgent-tag section-tag">LIVE</span>
+                </div>
+                <div class="tool-body">
+                    <div class="fir-template-grid">
+                        <button class="fir-template-btn" onclick="loadFIRTemplate('theft')">🏠 Theft / Chori</button>
+                        <button class="fir-template-btn" onclick="loadFIRTemplate('assault')">👊 Assault / Marpeet</button>
+                        <button class="fir-template-btn" onclick="loadFIRTemplate('missing')">🔍 Missing Person</button>
+                        <button class="fir-template-btn" onclick="loadFIRTemplate('accident')">🚗 Road Accident</button>
+                        <button class="fir-template-btn" onclick="loadFIRTemplate('cyber')">💻 Cyber Crime</button>
+                        <button class="fir-template-btn" onclick="loadFIRTemplate('drugs')">💊 NDPS / Drug Case</button>
+                        <button class="fir-template-btn" onclick="loadFIRTemplate('fraud')">💳 Financial Fraud</button>
+                        <button class="fir-template-btn" onclick="loadFIRTemplate('murder')">⚠️ Homicide / Murder</button>
+                    </div>
+                    <textarea id="fir-template-output" class="fir-output" rows="7" placeholder="FIR template yahan dikhega — upar se type select karein..." readonly></textarea>
+                    <button class="btn primary-btn" onclick="copyFIR()" style="margin-top:10px;">📋 Copy FIR Template</button>
+                </div>
+            </section>
+        </div>
+
+        <!-- ══════════════════════════════════════
+             SECTION GROUP 02 · FORENSICS AI
+        ══════════════════════════════════════ -->
+        <div class="section-group-header">
+            <span class="sg-num">02</span>
+            <div class="sg-info">
+                <span class="sg-title">🔬 Forensics AI Tools</span>
+                <span class="sg-desc">Object detection, face matching, and audio transcription</span>
+            </div>
+            <div class="sg-line"></div>
+        </div>
+
+        <div class="tools-grid tools-3col">
+            <!-- Object Detection -->
+            <section class="tool-card" id="section-detect">
+                <div class="tool-card-header">
+                    <div class="tool-badge badge-cyan">CV</div>
+                    <div class="tool-meta">
+                        <h2 class="tool-title">👁️ Object Detection</h2>
+                        <p class="tool-desc">Detect people, vehicles, and weapons in CCTV footage or images.</p>
+                    </div>
+                    <span class="tool-engine">YOLOv8</span>
+                </div>
+                <div class="tool-body">
+                    <div class="file-upload">
+                        <input type="file" id="yolo-image" accept="image/*">
+                        <label for="yolo-image" class="file-label">📁 Choose Image</label>
+                        <span id="yolo-file-name" class="file-name">No file selected</span>
+                    </div>
+                    <button id="btn-detect" class="btn primary-btn">▶ Run Detection</button>
+                    <div id="yolo-result" class="result-box hidden">
+                        <h3>Detected Objects</h3>
+                        <ul class="content list"></ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Face Verification -->
+            <section class="tool-card" id="section-face">
+                <div class="tool-card-header">
+                    <div class="tool-badge badge-pink">FR</div>
+                    <div class="tool-meta">
+                        <h2 class="tool-title">👤 Face Verification</h2>
+                        <p class="tool-desc">Match two suspect images to verify identity with AI.</p>
+                    </div>
+                    <span class="tool-engine">DeepFace</span>
+                </div>
+                <div class="tool-body">
+                    <div class="face-inputs">
+                        <div class="file-upload">
+                            <input type="file" id="face-img1" accept="image/*">
+                            <label for="face-img1" class="file-label">🖼 Image 1</label>
+                            <span id="face1-name" class="file-name">No file selected</span>
+                        </div>
+                        <div class="file-upload">
+                            <input type="file" id="face-img2" accept="image/*">
+                            <label for="face-img2" class="file-label">🖼 Image 2</label>
+                            <span id="face2-name" class="file-name">No file selected</span>
+                        </div>
+                    </div>
+                    <button id="btn-verify" class="btn primary-btn">▶ Verify Identity</button>
+                    <div id="face-result" class="result-box hidden">
+                        <h3>Verification Result</h3>
+                        <div class="content"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Audio Transcription -->
+            <section class="tool-card" id="section-audio">
+                <div class="tool-card-header">
+                    <div class="tool-badge badge-yellow">STT</div>
+                    <div class="tool-meta">
+                        <h2 class="tool-title">🎙️ Audio Transcription</h2>
+                        <p class="tool-desc">Convert suspect statements and bodycam audio to text.</p>
+                    </div>
+                    <span class="tool-engine">Whisper AI</span>
+                </div>
+                <div class="tool-body">
+                    <div class="file-upload">
+                        <input type="file" id="audio-file" accept="audio/*">
+                        <label for="audio-file" class="file-label">🎵 Upload Audio</label>
+                        <span id="audio-name" class="file-name">No file selected</span>
+                    </div>
+                    <button id="btn-transcribe" class="btn primary-btn">▶ Transcribe</button>
+                    <div id="audio-result" class="result-box hidden">
+                        <h3>Transcription Text</h3>
+                        <div class="content"></div>
+                        <button id="btn-download-transcription" class="btn primary-btn" style="margin-top:15px;">⬇️ Download as .txt</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ══════════════════════════════════════
+             SECTION GROUP 03 · INVESTIGATION
+        ══════════════════════════════════════ -->
+        <div class="section-group-header">
+            <span class="sg-num">03</span>
+            <div class="sg-info">
+                <span class="sg-title">🗂️ Investigation & Database</span>
+                <span class="sg-desc">Search suspects and criminal records</span>
+            </div>
+            <div class="sg-line"></div>
+        </div>
+
+        <div class="tools-grid" id="section-criminal">
+            <section class="tool-card tool-wide">
+                <div class="tool-card-header">
+                    <div class="tool-badge badge-orange">DB</div>
+                    <div class="tool-meta">
+                        <h2 class="tool-title">🗂️ Criminal Database Search</h2>
+                        <p class="tool-desc">Naam, crime type, ya city se suspect records search karein.</p>
+                    </div>
+                    <span class="tool-engine">Local Cache</span>
+                </div>
+                <div class="tool-body">
+                    <div class="criminal-search-row">
+                        <input type="text" id="criminal-search" placeholder="🔍  Naam, Crime Type, ya City daalo..." class="search-input criminal-input" onkeydown="if(event.key==='Enter')searchCriminal()">
+                        <button class="btn primary-btn criminal-btn" onclick="searchCriminal()">🔎 Search</button>
+                    </div>
+                    <div id="criminal-result" class="result-box hidden">
+                        <h3>Search Results</h3>
+                        <div class="content" id="criminal-content"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ══════════════════════════════════════
+             SECTION GROUP 04 · REPORTS
+        ══════════════════════════════════════ -->
+        <div class="section-group-header">
+            <span class="sg-num">04</span>
+            <div class="sg-info">
+                <span class="sg-title">📊 Reports & Activity Logs</span>
+                <span class="sg-desc">Session summary and exportable activity log</span>
+            </div>
+            <div class="sg-line"></div>
+        </div>
+
+        <div class="tools-grid" id="section-reports">
+            <section class="tool-card tool-wide">
+                <div class="tool-card-header">
+                    <div class="tool-badge badge-green">LOG</div>
+                    <div class="tool-meta">
+                        <h2 class="tool-title">📊 Session Report</h2>
+                        <p class="tool-desc">Aaj ki saari AI activity ka complete record — automatically tracked.</p>
+                    </div>
+                    <button class="btn primary-btn" onclick="exportLogs()" style="padding:8px 18px;font-size:0.82rem;width:auto;">⬇️ Export .txt</button>
+                </div>
+                <div class="tool-body">
+                    <div class="reports-grid">
+                        <div class="report-card">
+                            <span class="report-icon">📋</span>
+                            <h4>FIR Generated</h4>
+                            <span class="report-count" id="log-fir">0</span>
+                        </div>
+                        <div class="report-card">
+                            <span class="report-icon">🔍</span>
+                            <h4>Cases Analyzed</h4>
+                            <span class="report-count" id="log-cases">0</span>
+                        </div>
+                        <div class="report-card">
+                            <span class="report-icon">👤</span>
+                            <h4>Face Verifications</h4>
+                            <span class="report-count" id="log-faces">0</span>
+                        </div>
+                        <div class="report-card">
+                            <span class="report-icon">🎙️</span>
+                            <h4>Audio Transcribed</h4>
+                            <span class="report-count" id="log-audio">0</span>
+                        </div>
+                    </div>
+                    <div class="activity-log" id="activity-log">
+                        <div class="log-entry"><span class="log-time">System Ready</span> — AI Intelligence Hub started successfully.</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </div><!-- end .page-content -->
+
+    <footer class="site-footer">
+        <p>🚔 AI Intelligence Hub — Police Edition &nbsp;|&nbsp; Offline Forensics Toolkit &nbsp;|&nbsp; <strong>Confidential Use Only</strong></p>
+    </footer>
 
     <script src="script.js"></script>
+    <script>
+        // =====================================================
+        // SECTION NAVIGATION — openSection(id)
+        // Called by Quick Action buttons
+        // =====================================================
+        function openSection(sectionId) {
+            const target = document.getElementById(sectionId);
+            if (!target) return;
+
+            // Find the closest tool-card or tools-grid wrapper
+            // Expand if it has a collapsed tool-body
+            const toolCard = target.closest('.tool-card') || target.querySelector('.tool-card');
+
+            if (toolCard) {
+                expandCard(toolCard);
+            } else {
+                // It's a grid wrapper — expand all tool-cards inside
+                target.querySelectorAll('.tool-card').forEach(card => expandCard(card));
+            }
+
+            // Smooth scroll with navbar offset
+            setTimeout(() => {
+                const navbarHeight = document.getElementById('navbar')?.offsetHeight || 64;
+                const top = target.getBoundingClientRect().top + window.scrollY - navbarHeight - 12;
+                window.scrollTo({ top, behavior: 'smooth' });
+
+                // Highlight animation after scroll settles
+                setTimeout(() => highlightSection(target), 500);
+            }, 80);
+        }
+
+        function expandCard(card) {
+            const body = card.querySelector('.tool-body');
+            const arrow = card.querySelector('.tc-arrow');
+            if (!body) return;
+            body.classList.remove('tc-collapsed');
+            card.classList.add('tc-open');
+            if (arrow) arrow.textContent = '▲';
+        }
+
+        function collapseCard(card) {
+            const body = card.querySelector('.tool-body');
+            const arrow = card.querySelector('.tc-arrow');
+            if (!body) return;
+            body.classList.add('tc-collapsed');
+            card.classList.remove('tc-open');
+            if (arrow) arrow.textContent = '▼';
+        }
+
+        function highlightSection(el) {
+            el.classList.remove('section-flash');
+            void el.offsetWidth; // reflow
+            el.classList.add('section-flash');
+            setTimeout(() => el.classList.remove('section-flash'), 1400);
+        }
+
+        // =====================================================
+        // COLLAPSIBLE TOOL CARDS — auto-init on DOM ready
+        // =====================================================
+        function initCollapsible() {
+            document.querySelectorAll('.tool-card').forEach(card => {
+                const header = card.querySelector('.tool-card-header');
+                const body   = card.querySelector('.tool-body');
+                if (!header || !body) return;
+
+                // Inject toggle arrow (grid col 4, row 1)
+                const arrow = document.createElement('span');
+                arrow.className = 'tc-arrow';
+                arrow.textContent = '\u25bc';
+                header.appendChild(arrow);
+
+                // Inject hint text (grid col 2-4, row 2) — shown when collapsed
+                const hint = document.createElement('span');
+                hint.className = 'tc-hint';
+                hint.textContent = 'Click to expand this section';
+                header.appendChild(hint);
+
+                // Start collapsed
+                body.classList.add('tc-collapsed');
+                card.classList.remove('tc-open');
+
+                // Click header to toggle
+                header.addEventListener('click', () => {
+                    const isOpen = !body.classList.contains('tc-collapsed');
+                    if (isOpen) {
+                        collapseCard(card);
+                    } else {
+                        expandCard(card);
+                        highlightSection(card);
+                    }
+                });
+            });
+        }
+
+        // Run after DOM is ready
+        document.addEventListener('DOMContentLoaded', initCollapsible);
+        // Fallback if DOMContentLoaded already fired
+        if (document.readyState !== 'loading') initCollapsible();
+
+        // =====================================================
+        // LIVE CLOCK =====
+        function updateClock() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-IN', { hour12: false });
+            const dateStr = now.toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            const clockEl = document.getElementById('dash-clock');
+            const dateEl  = document.getElementById('dash-date');
+            if (clockEl) clockEl.textContent = timeStr;
+            if (dateEl)  dateEl.textContent  = dateStr;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // ===== LOCAL STORAGE SIZE =====
+        function updateStorage() {
+            try {
+                let total = 0;
+                for (let key in localStorage) {
+                    if (localStorage.hasOwnProperty(key)) total += localStorage[key].length * 2;
+                }
+                const kb = (total / 1024).toFixed(1);
+                const pct = Math.min((total / (5 * 1024 * 1024)) * 100, 100).toFixed(0);
+                const el = document.getElementById('storage-used');
+                const bar = document.getElementById('storage-bar');
+                if (el)  el.textContent  = kb + ' KB used';
+                if (bar) bar.style.width = pct + '%';
+            } catch(e) {}
+        }
+        updateStorage();
+
+        // ===== TICKER UPDATER =====
+        function addToTicker(msg) {
+            const track = document.getElementById('ticker-track');
+            if (!track) return;
+            const item = track.querySelector('.ticker-item');
+            if (item) item.textContent += '   ✓ ' + msg;
+        }
+
+        // ===== NAVBAR SCRIPTS =====
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+        const sidebarClose = document.getElementById('sidebar-close');
+
+        hamburgerBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            sidebarOverlay.classList.toggle('active');
+            hamburgerBtn.classList.toggle('active');
+        });
+        sidebarOverlay.addEventListener('click', closeSidebar);
+        sidebarClose.addEventListener('click', closeSidebar);
+        function closeSidebar() {
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('active');
+            hamburgerBtn.classList.remove('active');
+        }
+
+        // Active nav link on scroll
+        const sections = ['section-dashboard','section-fir','section-case','section-detect','section-face','section-audio','section-criminal','section-emergency','section-reports'];
+        const navMap = {'section-dashboard':'nav-dashboard','section-fir':'nav-fir','section-case':'nav-case','section-detect':'nav-detect','section-face':'nav-face','section-audio':'nav-audio','section-criminal':'nav-criminal','section-emergency':'nav-emergency','section-reports':'nav-reports'};
+        window.addEventListener('scroll', () => {
+            let current = 'section-dashboard';
+            sections.forEach(id => {
+                const el = document.getElementById(id);
+                if (el && window.scrollY >= el.offsetTop - 120) current = id;
+            });
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            const activeLink = document.getElementById(navMap[current]);
+            if (activeLink) activeLink.classList.add('active');
+        });
+
+        // ===== STAT COUNTERS =====
+        const stats = { fir: 0, cases: 0, faces: 0, audio: 0 };
+        function updateStats(type) {
+            stats[type]++;
+            document.getElementById('stat-' + type).textContent = stats[type];
+            document.getElementById('log-' + type).textContent = stats[type];
+            addLog(type);
+        }
+        function addLog(type) {
+            const labels = {fir:'FIR template copied', cases:'Case analysis run', faces:'Face verification done', audio:'Audio transcribed'};
+            const log = document.getElementById('activity-log');
+            const now = new Date().toLocaleTimeString();
+            const entry = document.createElement('div');
+            entry.className = 'log-entry new-entry';
+            entry.innerHTML = `<span class="log-time">${now}</span> — ${labels[type] || type}`;
+            log.prepend(entry);
+        }
+
+        // ===== FIR TEMPLATES =====
+        const firTemplates = {
+            theft: `FIR TEMPLATE — THEFT / CHORI\n\nThana: _______________\nDate: ${new Date().toLocaleDateString('hi-IN')}\nComplainant Name: _______________\nAddress: _______________\n\nGhaTna Ka Vivaran:\nUparOkt shikayatakarta ne shikayat ki hai ki unke ghar/dukaan se neeche likhi cheezein chori hui hain:\n- Item 1: _______________\n- Item 2: _______________\n\nSandehee ka Naam (agar pata ho): _______________\nDhara: IPC 379/380/381\n\nSignature: _______________ Date: _______________`,
+            assault: `FIR TEMPLATE — ASSAULT / MARPEET\n\nThana: _______________\nDate: ${new Date().toLocaleDateString('hi-IN')}\nComplainant: _______________\nVictim: _______________\n\nGhaTna Ka Vivaran:\n[Date/Time] ko [Location] par [Accused Name] ne complainant par hamla kiya aur [nature of injury] pahunchaya.\n\nGavaah: _______________\nDhara: IPC 323/324/325/326\n\nSignature: _______________ Date: _______________`,
+            missing: `FIR TEMPLATE — MISSING PERSON\n\nThana: _______________\nDate: ${new Date().toLocaleDateString('hi-IN')}\nReporter: _______________\nRelationship to Missing: _______________\n\nMissing Person Details:\nNaam: _______________\nUmra: ___   Ling: ___   Height: ___\nAkhiri baar kab dekha: _______________\nAkhiri baar kahan dekha: _______________\nKhas pehchaan: _______________\n\nDhara: Missing Report\nSignature: _______________ Date: _______________`,
+            accident: `FIR TEMPLATE — ROAD ACCIDENT\n\nThana: _______________\nDate: ${new Date().toLocaleDateString('hi-IN')}\nGhaTna Sthan: _______________\nTime: _______________\n\nVehicle 1: [Type, Number, Driver]\nVehicle 2: [Type, Number, Driver]\n\nGhaTna Ka Vivaran:\n[Describe how accident occurred]\n\nZakhmi Vyakti: _______________\nAspatal: _______________\nDhara: IPC 279/337/338 + MVA\n\nSignature: _______________ Date: _______________`,
+            cyber: `FIR TEMPLATE — CYBER CRIME\n\nThana / Cyber Cell: _______________\nDate: ${new Date().toLocaleDateString('hi-IN')}\nComplainant: _______________\nMobile/Email: _______________\n\nCrime Type: [ ] Online Fraud  [ ] Phishing  [ ] Hacking  [ ] Cyberbullying\n\nGhaTna Ka Vivaran:\n[Date/Time] ko complainant ko [SMS/Call/Email/Link] mila jisme [describe fraud/crime]\n\nNuqsaan ki Rashi: Rs. _______________\nTransaction ID: _______________\nDhara: IT Act 66C/66D + IPC 420\n\nSignature: _______________ Date: _______________`,
+            drugs: `FIR TEMPLATE — NDPS / DRUG CASE\n\nThana: _______________\nDate: ${new Date().toLocaleDateString('hi-IN')}\nAccused: _______________\nAddress: _______________\n\nBaramdagi Ka Vivaran:\nDrug Type: _______________\nMatra (Quantity): _______________\nBaramdagi Sthan: _______________\nBharamdagi Time: _______________\n\nPanchnama: Done by [Officer Name]\nDhara: NDPS Act 8/15/20/21\n\nSignature: _______________ Date: _______________`,
+            fraud: `FIR TEMPLATE — FINANCIAL FRAUD\n\nThana: _______________\nDate: ${new Date().toLocaleDateString('hi-IN')}\nComplainant: _______________\nBank: _______________   Account No: _______________\n\nGhaTna Ka Vivaran:\n[Date] ko complainant ke account se Rs. _______________ ki unauthorized transaction hui.\n\nTransaction Ref: _______________\nSandehee ka Details: _______________\nDhara: IPC 420/467/468/471\n\nSignature: _______________ Date: _______________`,
+            murder: `FIR TEMPLATE — HOMICIDE / MURDER\n\n⚠️  CONFIDENTIAL — SENIOR OFFICER APPROVAL REQUIRED\n\nThana: _______________\nDate: ${new Date().toLocaleDateString('hi-IN')}\nComplainant: _______________\n\nDeceased Ka Naam: _______________\nUmra: ___   Address: _______________\nMaut Ka Waqt: _______________\nMaut Ka Sthan: _______________\n\nGhaTna Ka Vivaran:\n[Describe circumstances of death]\n\nSandehee: _______________\nPost Mortem Status: [ ] Done  [ ] Pending\nDhara: IPC 302/304\n\nInvestigating Officer: _______________\nSignature: _______________ Date: _______________`
+        };
+        function loadFIRTemplate(type) {
+            const out = document.getElementById('fir-template-output');
+            out.value = firTemplates[type] || 'Template not found.';
+            out.style.borderColor = 'var(--accent)';
+        }
+        function copyFIR() {
+            const out = document.getElementById('fir-template-output');
+            if (!out.value.trim()) { alert('Pehle koi template select karein!'); return; }
+            navigator.clipboard.writeText(out.value).then(() => {
+                updateStats('fir');
+                const btn = event.target;
+                btn.textContent = '✅ Copied!';
+                setTimeout(() => btn.textContent = '📋 Copy FIR Template', 2000);
+            });
+        }
+
+        // ===== CRIMINAL DATABASE (Demo) =====
+        const criminalDB = [
+            { name: 'Ramesh Kumar', crime: 'Theft', status: 'Wanted', area: 'Delhi' },
+            { name: 'Suresh Yadav', crime: 'Assault', status: 'On Bail', area: 'Mumbai' },
+            { name: 'Anjali Sharma', crime: 'Fraud', status: 'Arrested', area: 'Pune' },
+            { name: 'Mohan Lal', crime: 'Drug Peddling', status: 'Wanted', area: 'Lucknow' },
+            { name: 'Vikram Singh', crime: 'Cyber Crime', status: 'Under Trial', area: 'Hyderabad' },
+        ];
+        function searchCriminal() {
+            const q = document.getElementById('criminal-search').value.toLowerCase();
+            const result = document.getElementById('criminal-result');
+            const content = document.getElementById('criminal-content');
+            if (!q) { alert('Search term daalo!'); return; }
+            const matches = criminalDB.filter(c => c.name.toLowerCase().includes(q) || c.crime.toLowerCase().includes(q) || c.area.toLowerCase().includes(q));
+            result.classList.remove('hidden');
+            if (matches.length === 0) {
+                content.innerHTML = '<em>Koi record nahi mila. Database update karein.</em>';
+            } else {
+                content.innerHTML = matches.map(m =>
+                    `<div class="criminal-card"><strong>${m.name}</strong><span class="crime-type">${m.crime}</span><span class="status-badge status-${m.status.toLowerCase().replace(/ /g,'-')}">${m.status}</span><span class="area-tag">📍 ${m.area}</span></div>`
+                ).join('');
+            }
+        }
+
+        // ===== EXPORT LOGS =====
+        function exportLogs() {
+            const logEl = document.getElementById('activity-log');
+            const entries = Array.from(logEl.querySelectorAll('.log-entry')).map(e => e.textContent).join('\n');
+            const blob = new Blob([`AI Intelligence Hub — Activity Log\nDate: ${new Date().toLocaleString()}\n\n` + entries], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `police_log_${Date.now()}.txt`;
+            a.click();
+        }
+    </script>
+
+    <!-- ===== LOGIN SYSTEM JAVASCRIPT ===== -->
+    <script>
+        // ========================================
+        // OFFICER DATABASE (hashed style demo)
+        // ========================================
+        const officerDB = {
+            'POL001': { password: 'police@123', name: 'Constable Rajesh Kumar',  rank: 'Constable',  avatar: '👮' },
+            'SP101':  { password: 'sp@2024',    name: 'S.P. Arvind Sharma',      rank: 'S.P.',       avatar: '👮‍♂️' },
+            'INS202': { password: 'inspector@1',name: 'Inspector Priya Singh',   rank: 'Inspector',  avatar: '👮‍♀️' },
+            'DSP303': { password: 'dsp@secure', name: 'D.S.P. Mohan Verma',     rank: 'D.S.P.',     avatar: '🫡' },
+            'SHO404': { password: 'sho#2024',   name: 'S.H.O. Suresh Yadav',    rank: 'S.H.O.',     avatar: '👮' },
+        };
+
+        // Math CAPTCHA
+        let capA, capB;
+        function generateCaptcha() {
+            capA = Math.floor(Math.random() * 9) + 1;
+            capB = Math.floor(Math.random() * 9) + 1;
+            document.getElementById('cap-q').textContent = `${capA} + ${capB}`;
+            document.getElementById('cap-ans').value = '';
+        }
+        generateCaptcha();
+
+        // Fill demo credentials on click
+        function fillDemo(badge, pass) {
+            document.getElementById('login-badge').value = badge;
+            document.getElementById('login-pass').value = pass;
+            document.getElementById('login-badge').focus();
+        }
+
+        // Toggle password visibility
+        function togglePassword() {
+            const inp = document.getElementById('login-pass');
+            inp.type = inp.type === 'password' ? 'text' : 'password';
+            document.getElementById('toggle-pass').textContent = inp.type === 'password' ? '👁️' : '🙈';
+        }
+
+        // Show login alert
+        let alertTimer;
+        function showAlert(msg, type = 'error') {
+            const box = document.getElementById('login-alert');
+            const txt = document.getElementById('login-alert-text');
+            txt.textContent = msg;
+            box.className = 'login-alert show ' + type;
+            clearTimeout(alertTimer);
+            alertTimer = setTimeout(() => box.className = 'login-alert', 3500);
+        }
+
+        // Main login function
+        let failCount = 0;
+        function doLogin() {
+            const badge   = document.getElementById('login-badge').value.trim().toUpperCase();
+            const pass    = document.getElementById('login-pass').value;
+            const station = document.getElementById('login-station').value;
+            const shift   = document.querySelector('input[name="shift"]:checked');
+            const capAns  = parseInt(document.getElementById('cap-ans').value);
+
+            // Validations
+            if (!badge)   { showAlert('⚠️ Badge / Officer ID daalo!'); return; }
+            if (!pass)    { showAlert('⚠️ Password daalo!'); return; }
+            if (!station) { showAlert('⚠️ Police Station select karo!'); return; }
+            if (!shift)   { showAlert('⚠️ Duty Shift select karo!'); return; }
+            if (isNaN(capAns) || capAns !== capA + capB) {
+                showAlert('❌ Security check failed! Sahi answer daalo.', 'error');
+                generateCaptcha(); return;
+            }
+
+            const officer = officerDB[badge];
+            if (!officer || officer.password !== pass) {
+                failCount++;
+                if (failCount >= 3) {
+                    showAlert(`🚫 ${3 - failCount + 3} attempts failed. System locked for 10 seconds.`, 'error');
+                    document.getElementById('login-submit').disabled = true;
+                    setTimeout(() => {
+                        document.getElementById('login-submit').disabled = false;
+                        failCount = 0;
+                        showAlert('✅ System unlocked. Try again.', 'success');
+                    }, 10000);
+                } else {
+                    showAlert(`❌ Invalid Badge or Password. (${failCount}/3 attempts)`, 'error');
+                }
+                generateCaptcha();
+                return;
+            }
+
+            // SUCCESS — Show loading animation
+            const btnText    = document.getElementById('login-btn-text');
+            const spinner    = document.getElementById('login-spinner');
+            const btn        = document.getElementById('login-submit');
+            btn.disabled     = true;
+            btnText.textContent = 'Authenticating...';
+            spinner.classList.remove('hidden');
+
+            setTimeout(() => {
+                // Save session to localStorage
+                const session = {
+                    badge, station,
+                    shift: shift.value,
+                    name: officer.name,
+                    rank: officer.rank,
+                    avatar: officer.avatar,
+                    loginTime: new Date().toLocaleTimeString('hi-IN')
+                };
+                localStorage.setItem('policeSession', JSON.stringify(session));
+                applySession(session);
+            }, 1800);
+        }
+
+        // Apply session and show app
+        function applySession(s) {
+            // Update navbar officer chip
+            document.getElementById('nav-officer-name').textContent = s.rank;
+            document.getElementById('nav-officer-badge').textContent = s.badge;
+            document.querySelector('.officer-avatar').textContent = s.avatar;
+            document.getElementById('od-name').textContent = s.name;
+            document.getElementById('od-badge').textContent = '🪪 ' + s.badge;
+            document.getElementById('od-station').textContent = '🏛️ ' + s.station;
+            document.getElementById('od-shift').textContent = '🕐 ' + s.shift;
+            document.getElementById('od-login-time').textContent = '⏰ Login: ' + s.loginTime;
+
+            // Animate login box out
+            const loginBox = document.getElementById('login-box');
+            loginBox.style.animation = 'loginBoxOut 0.6s ease forwards';
+            setTimeout(() => {
+                document.getElementById('login-overlay').style.display = 'none';
+                const app = document.getElementById('app-wrapper');
+                app.classList.remove('app-hidden');
+                app.style.animation = 'appFadeIn 0.8s ease forwards';
+
+                // Welcome toast
+                showToast(`✅ Welcome, ${s.name}! Shift: ${s.shift}`);
+                addLog('auth', `Officer ${s.badge} (${s.name}) logged in — ${s.station} — ${s.shift}`);
+            }, 600);
+        }
+
+        // Logout
+        function doLogout() {
+            if (!confirm('End shift aur logout karna chahte ho?')) return;
+            const s = JSON.parse(localStorage.getItem('policeSession') || '{}');
+            addLog('auth', `Officer ${s.badge || '?'} logged out at ${new Date().toLocaleTimeString()}`);
+            localStorage.removeItem('policeSession');
+
+            const app = document.getElementById('app-wrapper');
+            app.style.animation = 'appFadeOut 0.5s ease forwards';
+            setTimeout(() => {
+                app.classList.add('app-hidden');
+                const overlay = document.getElementById('login-overlay');
+                overlay.style.display = 'flex';
+                const box = document.getElementById('login-box');
+                box.style.animation = 'loginBoxIn 0.6s ease forwards';
+                // Reset form
+                document.getElementById('login-badge').value = '';
+                document.getElementById('login-pass').value = '';
+                document.getElementById('login-station').value = '';
+                document.querySelectorAll('input[name="shift"]').forEach(r => r.checked = false);
+                generateCaptcha();
+                failCount = 0;
+            }, 500);
+        }
+
+        // Officer chip dropdown toggle
+        document.getElementById('officer-chip').addEventListener('click', function(e) {
+            document.getElementById('officer-dropdown').classList.toggle('open');
+            e.stopPropagation();
+        });
+        document.addEventListener('click', () => {
+            document.getElementById('officer-dropdown').classList.remove('open');
+        });
+
+        // Toast notification
+        function showToast(msg) {
+            let t = document.getElementById('police-toast');
+            if (!t) {
+                t = document.createElement('div');
+                t.id = 'police-toast';
+                t.className = 'police-toast';
+                document.body.appendChild(t);
+            }
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 4000);
+        }
+
+        // Check existing session on load
+        window.addEventListener('load', () => {
+            const saved = localStorage.getItem('policeSession');
+            if (saved) {
+                try {
+                    const s = JSON.parse(saved);
+                    if (s.badge && officerDB[s.badge]) {
+                        applySession(s);
+                        return;
+                    }
+                } catch(e) {}
+                localStorage.removeItem('policeSession');
+            }
+        });
+
+        // Enter key on login form
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && document.getElementById('login-overlay').style.display !== 'none') {
+                doLogin();
+            }
+        });
+    </script>
+
+    </div><!-- end #app-wrapper -->
 </body>
 </html>
